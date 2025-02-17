@@ -1,0 +1,5 @@
+logs
+.gitignore
+README.md
+eslint.*
+.next/
