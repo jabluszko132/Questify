@@ -11,31 +11,36 @@ model Users {
   id Int @id @default(autoincrement())
   nickname String
   email String @unique
-  date_created DateTime @default(now())
   avatar Avatars?
   user_questlists Users_questlists[] 
   friends Friends[] @relation("is_a_friend") 
   friends2 Friends[] @relation("has_a_friend")
   stats Stats?
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
 }
 
 model Avatars {
   user Users @relation(fields: [user_id], references: [id])
   user_id Int @id 
   hat Hats @relation(fields: [hat_id], references: [id])
-  hat_id Int
+  hat_id Int 
   glass Glasses @relation(fields: [glasses_id], references: [id])
   glasses_id Int 
   background Backgrounds @relation(fields: [background_id], references: [id])
   background_id Int 
   frame Frames  @relation(fields: [frame_id ], references: [id])
   frame_id Int 
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
 }
 
 model Hats {
   id Int @id @default(autoincrement()) 
   filename String
   Avatar Avatars[]
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
 }
 
 
@@ -43,6 +48,8 @@ model Glasses {
   id Int @id @default(autoincrement()) 
   filename String
   Avatar Avatars[]
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
 }
 
 
@@ -50,6 +57,8 @@ model Backgrounds {
   id Int @id @default(autoincrement()) 
   filename String
   Avatar Avatars[]
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt          
 }
 
 
@@ -57,6 +66,8 @@ model Frames {
   id Int @id @default(autoincrement()) 
   filename String
   Avatar Avatars[]
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
 }
 
 model Users_questlists {
@@ -64,12 +75,16 @@ model Users_questlists {
   questlist_id Int
   usedBy Users @relation(fields: [user_id], references: [id]) 
   questlist Questlists @relation(fields: [questlist_id], references: [id]) 
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
 }
 
 model Questlists {
   id Int @id @default(autoincrement()) 
   Users_questlists Users_questlists[]
   quests Quests[] 
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
 }
 
 model Quests {
@@ -77,6 +92,8 @@ model Quests {
   questlist_id Int
   belongsToList Questlists @relation(fields: [questlist_id], references: [id]) 
   quest_details Quest_details?
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
 }
 
 model Quest_details {
@@ -84,6 +101,8 @@ model Quest_details {
   description String
   exp Int
   describes Quests @relation(fields: [id], references: [id])
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
 }
 
 model Friends {
@@ -92,6 +111,8 @@ model Friends {
   user1 Users @relation(name: "is_a_friend",fields: [user1_id], references: [id]) 
   user2 Users @relation(name: "has_a_friend",fields: [user2_id], references: [id]) 
   @@id([user1_id, user2_id])
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
 }
 
 model Stats {
@@ -100,5 +121,7 @@ model Stats {
   exp Int @default(0)
   questsCompleted Int @default(0)
   user Users @relation(fields: [user_id], references: [id])
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
 }
 
