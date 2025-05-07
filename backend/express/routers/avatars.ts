@@ -4,6 +4,22 @@ import Avatars from '../models/avatars'
 
 const avatarRouter: Router = Router()
 
+avatarRouter.post("/add", async (req, res, next) => {
+  if (!implementsClass(req.body, Avatars)) {
+    res.status(400).end("Bad request")
+  }
+  prisma.avatars.create({
+    data:
+    {
+      ...req.body
+    }
+  }).catch((err: any) => {
+    next(err)
+  }).then((result: any) => {
+    res.status(200).send(result)
+  })
+})
+
 avatarRouter.get("/:userId", async (req, res, next) => {
   if (!req.params.userId) {
     res.status(400).end("Bad request")
@@ -23,4 +39,42 @@ avatarRouter.get("/:userId", async (req, res, next) => {
       next(err)
     })
 })
+
+avatarRouter.patch("/update/:userId", async (req, res, next) => {
+  if (!implementsClass(req.body, Avatars) || !req.params.userId) {
+    res.status(400).end("Bad request")
+  }
+  prisma.avatars.update({
+    where:
+    {
+      user_id: req.body.user_id
+    },
+    data: {
+      ...req.body
+    }
+  }).catch((err: any) => {
+    next(err)
+  }).then((result: any) => {
+    res.status(200).send(result)
+  })
+})
+
+
+avatarRouter.delete("/delete/:userId", async (req, res, next) => {
+  if (!req.params.userId) {
+    res.status(400).end("Bad request")
+  }
+  prisma.avatars.delete({
+    where:
+    {
+      user_id: req.body.user_id
+    }
+  }).catch((err: any) => {
+    next(err)
+  }).then((result: any) => {
+    res.status(200).send(result)
+  })
+})
+
+
 export { avatarRouter }
