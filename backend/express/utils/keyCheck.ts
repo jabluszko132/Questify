@@ -4,3 +4,5 @@ function implementsClass(obj: any, cls: any): boolean {
   }
   return Object.getOwnPropertyNames(cls).every(x => { obj.keys().includes(x) })
 }
+
+export default implementsClass;
