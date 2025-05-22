@@ -1,19 +1,18 @@
 import { Router, NextFunction } from 'express'
 import prisma from '../dbCon.ts'
-import { UsersReq } from '../models/users.ts';
-import implementsClass from "../utils/keyCheck";
+import { UsersReq, UsersSchema } from '../models/users.ts';
+import {AvatarsSchema} from "../models/avatars";
 
 const usersRouter: Router = Router()
 
 usersRouter.post("/add", async (req, res, next) => {
-    if (Object.keys(req.body) != Object.keys(UsersReq.prototype)) {
+    const data = UsersSchema.safeParse(req.body);
+    if (!data.success) {
         res.status(400).end("Bad request")
+        return
     }
     prisma.users.create({
-        data:
-            {
-                ...req.body
-            }
+        data: data.data
     }).catch((err: any) => {
         next(err)
     }).then((result: any) => {
@@ -42,17 +41,17 @@ usersRouter.get("/:userId", async (req, res, next) => {
 })
 
 usersRouter.patch("/update", async (req, res, next) => {
-    if (Object.keys(req.body) !== Object.keys(UsersReq.prototype)) {
+    const data = UsersSchema.safeParse(req.body);
+    if (!data.success) {
         res.status(400).end("Bad request")
+        return
     }
     prisma.users.update({
         where:
             {
                 id: req.body.id
             },
-        data: {
-            ...req.body
-        }
+        data: data.data
     }).catch((err: any) => {
         next(err)
     }).then((result: any) => {
