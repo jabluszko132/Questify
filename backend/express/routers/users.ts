@@ -1,18 +1,13 @@
-import { Router, NextFunction } from 'express'
+import { Router, Request, Response, NextFunction } from 'express'
 import prisma from '../dbCon.ts'
-import { UsersReq, UsersSchema } from '../models/users.ts';
-import {AvatarsSchema} from "../models/avatars";
+import {UsersReq, UsersSchema} from '../models';
+import getEntityValidationMiddleware from "../middleware/entityValidationMiddleware";
 
 const usersRouter: Router = Router()
 
-usersRouter.post("/add", async (req, res, next) => {
-    const data = UsersSchema.safeParse(req.body);
-    if (!data.success) {
-        res.status(400).end("Bad request")
-        return
-    }
+usersRouter.post("/add", [getEntityValidationMiddleware(UsersReq)], (req: Request, res: Response, next: NextFunction) => {
     prisma.users.create({
-        data: data.data
+        data: req.body
     }).catch((err: any) => {
         next(err)
     }).then((result: any) => {
@@ -20,9 +15,10 @@ usersRouter.post("/add", async (req, res, next) => {
     })
 })
 
-usersRouter.get("/:userId", async (req, res, next) => {
+usersRouter.get("/:userId", (req: Request, res: Response, next: NextFunction) => {
     if (!req.params.userId) {
         res.status(400).end("Bad request")
+        return
     }
     prisma.users.findUnique({
         where: {
@@ -40,18 +36,17 @@ usersRouter.get("/:userId", async (req, res, next) => {
         })
 })
 
-usersRouter.patch("/update", async (req, res, next) => {
-    const data = UsersSchema.safeParse(req.body);
-    if (!data.success) {
+usersRouter.patch("/update/:id", [getEntityValidationMiddleware(UsersReq)], (req: Request, res: Response, next: NextFunction) => {
+    if(!req.params.id){
         res.status(400).end("Bad request")
         return
     }
     prisma.users.update({
         where:
             {
-                id: req.body.id
+                id: parseInt(req.params.id)
             },
-        data: data.data
+        data: req.body
     }).catch((err: any) => {
         next(err)
     }).then((result: any) => {
@@ -60,14 +55,15 @@ usersRouter.patch("/update", async (req, res, next) => {
 })
 
 
-usersRouter.delete("/delete/:userId", async (req, res, next) => {
+usersRouter.delete("/delete/:userId", (req: Request, res: Response, next: NextFunction) => {
     if (!req.params.userId) {
         res.status(400).end("Bad request")
+        return
     }
     prisma.users.delete({
         where:
             {
-                id: req.body.userId
+                id: parseInt(req.params.userId)
             }
     }).catch((err: any) => {
         next(err)

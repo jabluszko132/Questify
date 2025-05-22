@@ -1,18 +1,14 @@
-import { Router, NextFunction } from 'express'
+import { Router, Request, Response, NextFunction } from 'express'
 import prisma from '../dbCon.ts'
-import { AvatarsSchema } from '../models/avatars'
-import implementsClass from "../utils/keyCheck";
+import { AvatarsSchema, AvatarsReq } from '../models'
+import getEntityValidationMiddleware from '../middleware/entityValidationMiddleware.ts'
 
 const avatarRouter: Router = Router()
 
-avatarRouter.post("/add", async (req, res, next) => {
-  const data = AvatarsSchema.safeParse(req.body);
-  if (!data.success) {
-    res.status(400).end("Bad request")
-    return
-  }
+avatarRouter.post("/add", [getEntityValidationMiddleware(AvatarsSchema)], async (req: Request, res: Response, next: NextFunction)=> {
+  //TODO: check for constraints
   prisma.avatars.create({
-    data: data.data
+    data: req.body
   }).catch((err: any) => {
     next(err)
   }).then((result: any) => {
@@ -20,9 +16,10 @@ avatarRouter.post("/add", async (req, res, next) => {
   })
 })
 
-avatarRouter.get("/:userId", async (req, res, next) => {
+avatarRouter.get("/:userId", (req: Request, res: Response, next: NextFunction) => {
   if (!req.params.userId) {
     res.status(400).end("Bad request")
+    return
   }
   prisma.avatars.findUnique({
     where: {
@@ -40,18 +37,17 @@ avatarRouter.get("/:userId", async (req, res, next) => {
     })
 })
 
-avatarRouter.patch("/update", async (req, res, next) => {
-  const data = AvatarsSchema.safeParse(req.body);
-  if (!data.success) {
+avatarRouter.patch("/update/:userId", [getEntityValidationMiddleware(AvatarsReq)],(req: Request, res: Response, next: NextFunction) => {
+  if(!req.params.userId){
     res.status(400).end("Bad request")
     return
   }
   prisma.avatars.update({
     where:
     {
-      user_id: req.body.user_id
+      user_id: parseInt(req.params.userId)
     },
-    data: data.data
+    data: req.body
   }).catch((err: any) => {
     next(err)
   }).then((result: any) => {
@@ -60,14 +56,15 @@ avatarRouter.patch("/update", async (req, res, next) => {
 })
 
 
-avatarRouter.delete("/delete/:userId", async (req, res, next) => {
+avatarRouter.delete("/delete/:userId", (req, res, next) => {
   if (!req.params.userId) {
     res.status(400).end("Bad request")
+    return
   }
   prisma.avatars.delete({
     where:
     {
-      user_id: req.body.user_id
+      user_id: parseInt(req.params.userId)
     }
   }).catch((err: any) => {
     next(err)
