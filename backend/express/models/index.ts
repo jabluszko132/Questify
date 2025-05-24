@@ -1,7 +1,7 @@
 export { AttributeSchema, AttributeReq } from './avatarAttribute';
 export { AvatarsSchema, AvatarsReq } from "./avatars";
-export { FriendsSchema } from "./friends";
-export { QuestlistDetailsSchema } from "./questlistDetails";
+export { FriendsSchema, FriendsReq } from "./friends";
+export { QuestDetailsSchema } from "./questDetails";
 export { QuestlistsSchema } from "./questlists";
 export { QuestsSchema } from "./quests";
 export { StatsSchema } from "./stats";

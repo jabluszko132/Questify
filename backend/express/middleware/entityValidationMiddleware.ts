@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { ZodObject } from "zod";
 
-export default function getEntityValidationMiddleware(entity: ZodObject<any>) {
+export function getEntityValidationMiddleware(entity: ZodObject<any>) {
     return (req: Request,res: Response,next: NextFunction) => {
         try {
             const data = entity.safeParse(req.body);
