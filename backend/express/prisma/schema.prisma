@@ -21,15 +21,15 @@ model Users {
 }
 
 model Avatars {
-  user          Users        @relation(fields: [user_id], references: [id])
+  user          Users        @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id       Int          @id
-  hat           Hats?        @relation(fields: [hat_id], references: [id])
+  hat           Hats?        @relation(fields: [hat_id], references: [id], onDelete: SetNull)
   hat_id        Int?
-  glass         Glasses?     @relation(fields: [glasses_id], references: [id])
+  glass         Glasses?     @relation(fields: [glasses_id], references: [id], onDelete: SetNull)
   glasses_id    Int?
-  background    Backgrounds? @relation(fields: [background_id], references: [id])
+  background    Backgrounds? @relation(fields: [background_id], references: [id], onDelete: SetNull)
   background_id Int?
-  frame         Frames?      @relation(fields: [frame_id], references: [id])
+  frame         Frames?      @relation(fields: [frame_id], references: [id], onDelete: SetNull)
   frame_id      Int?
   date_created  DateTime?    @default(now())
   date_updated  DateTime?    @updatedAt
@@ -70,7 +70,7 @@ model Frames {
 model Users_questlists {
   user_id      Int        @id
   questlist_id Int
-  usedBy       Users      @relation(fields: [user_id], references: [id])
+  usedBy       Users      @relation(fields: [user_id], references: [id], onDelete: Cascade)
   questlist    Questlists @relation(fields: [questlist_id], references: [id])
   date_created DateTime   @default(now())
   date_updated DateTime   @updatedAt
@@ -97,7 +97,7 @@ model Quest_details {
   id           Int      @id
   description  String
   exp          Int
-  describes    Quests   @relation(fields: [id], references: [id])
+  describes    Quests   @relation(fields: [id], references: [id], onDelete: Cascade)
   date_created DateTime @default(now())
   date_updated DateTime @updatedAt
 }
@@ -105,8 +105,8 @@ model Quest_details {
 model Friends {
   user1_id     Int
   user2_id     Int
-  user1        Users    @relation(name: "is_a_friend", fields: [user1_id], references: [id])
-  user2        Users    @relation(name: "has_a_friend", fields: [user2_id], references: [id])
+  user1        Users    @relation(name: "is_a_friend", fields: [user1_id], references: [id], onDelete: Cascade)
+  user2        Users    @relation(name: "has_a_friend", fields: [user2_id], references: [id], onDelete: Cascade)
   date_created DateTime @default(now())
   date_updated DateTime @updatedAt
 
@@ -118,7 +118,7 @@ model Stats {
   coins           Int      @default(0)
   exp             Int      @default(0)
   questsCompleted Int      @default(0)
-  user            Users    @relation(fields: [user_id], references: [id])
+  user            Users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
   date_created    DateTime @default(now())
   date_updated    DateTime @updatedAt
 }
