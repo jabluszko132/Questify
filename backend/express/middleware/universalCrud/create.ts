@@ -8,7 +8,7 @@ export function getCreateMiddleware(prismaSchema: any) {
             prismaSchema.create({
                 data: req.body
             }).then((result: any) => {
-                res.status(200).end(JSON.stringify(result))
+                res.status(201).json(result)
                 return
             }).catch((err: any) => {
                 next(err)

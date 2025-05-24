@@ -13,7 +13,7 @@ export function getUpdateByParamIdMiddleware(idName: string, prismaSchema: any, 
                 },
                 data: req.body
             }).then((result: any) => {
-                res.status(200).end(JSON.stringify(result))
+                res.status(200).json(result)
                 return
             }).catch((err: any) => {
                 next(err)

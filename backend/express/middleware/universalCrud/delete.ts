@@ -12,7 +12,7 @@ export function getDeleteByIdParamMiddleware(idName: string, prismaSchema: any, 
                     [idName]: isString ? idName : parseInt(req.params[idName])
                 }
             }).then((result: any) => {
-                res.status(200).end(JSON.stringify(result))
+                res.status(200).json(result)
                 return
             }).catch((err: any) => {
                 next(err)

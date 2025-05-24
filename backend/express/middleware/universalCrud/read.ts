@@ -13,9 +13,9 @@ export function getReadByIdParamMiddleware(idName: string, prismaSchema: any, is
                 }
             }).then((result: any) => {
                 if(result){
-                    res.status(200).end(JSON.stringify(result))
+                    res.status(200).json(result)
                 }else{
-                    res.status(404).end(JSON.stringify({ "404": "Not found" }));
+                    res.status(404).json({ "404": "Not found" });
                 }
                 return
             }).catch((err: any) => {
