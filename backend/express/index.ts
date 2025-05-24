@@ -10,6 +10,7 @@ import {
     UsersReq
 } from "./models";
 import prisma from "./dbCon";
+import friendsRouter from "./routers/friendsRouter";
 
 const app = express();
 app.use(express.json());
@@ -67,8 +68,7 @@ app.use("/hats", getModelCRUDRouter(prisma.hats,attributeConfig));
 app.use("/backgrounds", getModelCRUDRouter(prisma.backgrounds, attributeConfig));
 app.use("/frames", getModelCRUDRouter(prisma.frames, attributeConfig));
 app.use("/glasses", getModelCRUDRouter(prisma.glasses, attributeConfig));
-//TODO: add friends custom router since they have a composite key
-app.use("/friends", getModelCRUDRouter(prisma.friends,friendsConfig));
+app.use("/friends", friendsRouter);
 app.use("/users_questlists", getModelCRUDRouter(prisma.users_questlists, usersQuestlistsConfig));
 app.use("/stats", getModelCRUDRouter(prisma.stats, statsConfig));
 app.use("/quests", getModelCRUDRouter(prisma.quests, questsConfig));
