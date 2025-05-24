@@ -23,8 +23,9 @@ export default function getModelCRUDRouter( prismaSchema: any, config: CRUDRoute
 
   modelRouter.post("/", [getEntityValidationMiddleware(config.createModel), getCreateMiddleware(prismaSchema)]);
   modelRouter.get(`/:${config.idName}`, [getReadByIdParamMiddleware(config.idName, prismaSchema)]);
-  modelRouter.patch(`/:${config.idName}`, [getEntityValidationMiddleware(config.updateModel), getUpdateByParamIdMiddleware('id', prismaSchema)]);
+  modelRouter.patch(`/:${config.idName}`, [getEntityValidationMiddleware(config.updateModel), getUpdateByParamIdMiddleware(config.idName, prismaSchema)]);
   modelRouter.delete(`/:${config.idName}`, [getDeleteByIdParamMiddleware(config.idName, prismaSchema)]);
 
   return modelRouter;
 }
+
