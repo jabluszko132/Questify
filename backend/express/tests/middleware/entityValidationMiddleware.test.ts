@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import {describe, it} from 'mocha';
-import {getEntityValidationMiddleware} from '../middleware/entityValidationMiddleware';
+import {getEntityValidationMiddleware} from '../../middleware/entityValidationMiddleware';
 import {NextFunction, Request, Response} from 'express';
 import {z, ZodObject} from 'zod';
 import nock from 'nock';
