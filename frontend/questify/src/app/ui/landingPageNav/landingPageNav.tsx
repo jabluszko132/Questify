@@ -23,7 +23,10 @@ export default async function LandingPageNav() {
       <div className={styles.links}>
         <Link href="/" className={styles.link}>
           Home
-        </Link>        
+        </Link>
+        <Link href="/dashboard" className={styles.link}>
+          Dashboard
+        </Link>
         <Link href="/about" className={styles.link}>
           About us
         </Link>
