@@ -20,6 +20,14 @@ model Users {
   date_updated    DateTime           @updatedAt
 }
 
+model Passwords {
+  user_id      Int      @id
+  password     String
+  salt         String
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
+}
+
 model Avatars {
   user          Users        @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id       Int          @id
