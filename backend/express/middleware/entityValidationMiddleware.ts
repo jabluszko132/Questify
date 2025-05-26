@@ -8,7 +8,7 @@ export function getEntityValidationMiddleware(entity: ZodObject<any>) {
             if(data.success){
                 next()
             }else{
-                res.status(400).end(JSON.stringify({"Bad request": data.error.message}))
+                res.status(400).json({"400": "Bad request", "errors": data.error.errors})
                 return
             }
         }catch(err){
