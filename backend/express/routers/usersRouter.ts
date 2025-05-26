@@ -19,7 +19,6 @@ usersRouter.post('/', [getEntityValidationMiddleware(UsersReq)], async (req: Req
     }
     const { email, username, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-    console.log("Dsadasdas");
     await prisma.users.create({
         data: 
             {
@@ -35,6 +34,7 @@ usersRouter.post('/', [getEntityValidationMiddleware(UsersReq)], async (req: Req
             password: true
         }
     }).then((result: any) => {
+        console.log(`User '${username}' registered.`);
         res.status(201).end(JSON.stringify(result));
     }).catch((err: any) => {
         next(err);
