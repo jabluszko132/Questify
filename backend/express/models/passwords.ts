@@ -8,3 +8,5 @@ export const PasswordsSchema = z.object({
 export const PasswordsReq = z.object({
     hash: z.string()
 });
+
+export const AuthReq = z.object({});
