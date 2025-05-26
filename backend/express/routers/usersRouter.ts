@@ -13,17 +13,17 @@ const usersRouter = Router();
 const SALT_ROUNDS = 10;
 
 usersRouter.post('/', [getEntityValidationMiddleware(UsersReq)], async (req: Request, res: Response, next: NextFunction) => {
-    if(!req.body.email || !req.body.nickname || !req.body.password) {
+    if(!req.body.email || !req.body.username || !req.body.password) {
         res.status(400).end("Bad request");
         return;
     }
-    const { email, nickname, password } = req.body;
+    const { email, username, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
     console.log("Dsadasdas");
     await prisma.users.create({
         data: 
             {
-                nickname: nickname,
+                username: username,
                 email: email,
                 password: {
                     create: {
