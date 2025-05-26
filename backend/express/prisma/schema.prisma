@@ -11,6 +11,7 @@ model Users {
   id              Int                @id @default(autoincrement())
   nickname        String
   email           String             @unique
+  password        Passwords?
   avatar          Avatars?
   user_questlists Users_questlists[]
   friends         Friends[]          @relation("is_a_friend")
@@ -22,8 +23,8 @@ model Users {
 
 model Passwords {
   user_id      Int      @id
-  password     String
-  salt         String
+  user         Users    @relation(fields: [user_id], references: [id])
+  hash         String
   date_created DateTime @default(now())
   date_updated DateTime @updatedAt
 }
