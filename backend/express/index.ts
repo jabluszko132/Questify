@@ -11,6 +11,7 @@ import {
 } from "./models";
 import prisma from "./dbCon";
 import friendsRouter from "./routers/friendsRouter";
+import usersRouter from "./routers/usersRouter";
 
 const app = express();
 app.use(express.json());
@@ -62,7 +63,7 @@ const questDetailsConfig: CRUDRouterConfig = {
     createModel: QuestDetailsSchema
 }
 
-app.use("/users", getModelCRUDRouter(prisma.users, usersConfig));
+app.use("/users", usersRouter);
 app.use("/avatars", getModelCRUDRouter(prisma.avatars, avatarsConfig));
 app.use("/hats", getModelCRUDRouter(prisma.hats,attributeConfig));
 app.use("/backgrounds", getModelCRUDRouter(prisma.backgrounds, attributeConfig));
