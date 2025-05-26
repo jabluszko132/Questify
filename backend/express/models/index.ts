@@ -7,3 +7,4 @@ export { QuestsSchema } from "./quests";
 export { StatsSchema } from "./stats";
 export { UsersSchema, UsersReq } from "./users";
 export { UsersQuestlistsSchema } from "./usersQuestlists";
+export { PasswordsSchema, PasswordsReq } from "./passwords";
