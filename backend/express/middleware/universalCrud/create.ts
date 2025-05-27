@@ -11,7 +11,12 @@ export function getCreateMiddleware(prismaSchema: any) {
                 res.status(201).json(result)
                 return
             }).catch((err: any) => {
-                next(err)
+                if(err.code === 'P2002') {
+                    res.status(409).json({409: 'Already exists'})
+                    return
+                }else{
+                    next(err)
+                }
             })
         } catch (err) {
             next(err)
