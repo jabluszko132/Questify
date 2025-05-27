@@ -1,8 +1,6 @@
 import Router, {Request, Response, NextFunction} from 'express';
 import {
-    getCreateMiddleware,
-    getReadAllByParamMiddleware,
-    getReadByIdParamMiddleware
+    getReadAllByParamMiddleware
 } from "../middleware/universalCrud";
 import prisma from "../dbCon";
 import {getEntityValidationMiddleware} from "../middleware/entityValidationMiddleware";
@@ -23,7 +21,7 @@ friendsRouter.post('/', [getEntityValidationMiddleware(FriendsSchema)], (req: Re
             },
         ]
     }).then((result: any) => {
-        res.status(201).end(JSON.stringify(result));
+        res.status(201).json(result).end();
     }).catch((err: any) => {
         next(err);
     })
@@ -65,7 +63,7 @@ friendsRouter.delete('/:user1_id/:user2_id', (req: Request, res: Response, next:
                 ]
             },
         }).then((result: any) => {
-            res.status(200).end(JSON.stringify(result));
+            res.status(200).json(result);
         }).catch((err: any) => {
             next(err);
         })

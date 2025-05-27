@@ -1,12 +1,6 @@
 import Router, {Request, Response, NextFunction} from 'express';
-import {
-    getCreateMiddleware,
-    getReadAllByParamMiddleware,
-    getReadByIdParamMiddleware
-} from "../middleware/universalCrud";
 import prisma from "../dbCon";
 import {getEntityValidationMiddleware} from "../middleware/entityValidationMiddleware";
-import {PasswordsSchema} from "../models";
 import bcrypt from "bcrypt";
 import { AuthReq } from '../models/passwords';
 
