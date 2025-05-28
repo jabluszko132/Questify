@@ -46,34 +46,34 @@ model Avatars {
 
 model Hats {
   id           Int       @id @default(autoincrement())
-  filename     String
+  price        Int
   Avatar       Avatars[]
-  date_created DateTime  @default(now())
-  date_updated DateTime  @updatedAt
+  date_created DateTime?  @default(now())
+  date_updated DateTime?  @updatedAt
 }
 
 model Glasses {
   id           Int       @id @default(autoincrement())
-  filename     String
+  price        Int
   Avatar       Avatars[]
-  date_created DateTime  @default(now())
-  date_updated DateTime  @updatedAt
+  date_created DateTime?  @default(now())
+  date_updated DateTime?  @updatedAt
 }
 
 model Backgrounds {
   id           Int       @id @default(autoincrement())
-  filename     String
+  price        Int
   Avatar       Avatars[]
-  date_created DateTime  @default(now())
-  date_updated DateTime  @updatedAt
+  date_created DateTime?  @default(now())
+  date_updated DateTime?  @updatedAt
 }
 
 model Frames {
   id           Int       @id @default(autoincrement())
-  filename     String
+  price        Int
   Avatar       Avatars[]
-  date_created DateTime  @default(now())
-  date_updated DateTime  @updatedAt
+  date_created DateTime?  @default(now())
+  date_updated DateTime?  @updatedAt
 }
 
 model Users_questlists {
@@ -81,16 +81,16 @@ model Users_questlists {
   questlist_id Int
   usedBy       Users      @relation(fields: [user_id], references: [id], onDelete: Cascade)
   questlist    Questlists @relation(fields: [questlist_id], references: [id])
-  date_created DateTime   @default(now())
-  date_updated DateTime   @updatedAt
+  date_created DateTime?   @default(now())
+  date_updated DateTime?   @updatedAt
 }
 
 model Questlists {
   id               Int                @id @default(autoincrement())
   Users_questlists Users_questlists[]
   quests           Quests[]
-  date_created     DateTime           @default(now())
-  date_updated     DateTime           @updatedAt
+  date_created     DateTime?          @default(now())
+  date_updated     DateTime?          @updatedAt
 }
 
 model Quests {
@@ -98,8 +98,8 @@ model Quests {
   questlist_id  Int
   belongsToList Questlists     @relation(fields: [questlist_id], references: [id])
   quest_details Quest_details?
-  date_created  DateTime       @default(now())
-  date_updated  DateTime       @updatedAt
+  date_created  DateTime?      @default(now())
+  date_updated  DateTime?      @updatedAt
 }
 
 model Quest_details {
@@ -107,8 +107,8 @@ model Quest_details {
   description  String
   exp          Int
   describes    Quests   @relation(fields: [id], references: [id], onDelete: Cascade)
-  date_created DateTime @default(now())
-  date_updated DateTime @updatedAt
+  date_created DateTime? @default(now())
+  date_updated DateTime? @updatedAt
 }
 
 model Friends {
@@ -116,8 +116,8 @@ model Friends {
   user2_id     Int
   user1        Users    @relation(name: "is_a_friend", fields: [user1_id], references: [id], onDelete: Cascade)
   user2        Users    @relation(name: "has_a_friend", fields: [user2_id], references: [id], onDelete: Cascade)
-  date_created DateTime @default(now())
-  date_updated DateTime @updatedAt
+  date_created DateTime? @default(now())
+  date_updated DateTime? @updatedAt
 
   @@id([user1_id, user2_id])
 }
@@ -128,6 +128,6 @@ model Stats {
   exp             Int      @default(0)
   questsCompleted Int      @default(0)
   user            Users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  date_created    DateTime @default(now())
-  date_updated    DateTime @updatedAt
+  date_created    DateTime? @default(now())
+  date_updated    DateTime? @updatedAt
 }
