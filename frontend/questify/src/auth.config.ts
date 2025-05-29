@@ -10,15 +10,25 @@ export const authConfig = {
             const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
             if (isOnDashboard) {
                 if (isLoggedIn) return true;
-                console.log("Not logged in");
                 return false; // Redirect unauthenticated users to login page
             } else if (isLoggedIn) {
-                console.log("Logged in");
                 return Response.redirect(new URL('/dashboard', nextUrl));
             }
-            console.log("Not logged in");
             return true;
         },
+        // session({session, user})
+        // {
+        //     session.user.id = user.id;
+        //     return session;
+        // }
+        // async jwt({ token, user }) {
+		// 	user && (token.user = user);
+		// 	return token;
+		// },
+		// async session({ session, token }) {
+		// 	// Send properties to the client, like an access_token and user id from a provider.
+		// 	return session;
+		// },
     },
   providers: [], // Add providers with an empty array for now
 } satisfies NextAuthConfig;

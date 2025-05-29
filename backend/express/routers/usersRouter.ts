@@ -28,6 +28,21 @@ usersRouter.post('/', [getEntityValidationMiddleware(UsersReq)], async (req: Req
                     create: {
                         hash: hashedPassword
                     }
+                },
+                stats: {
+                    create: {
+                        coins: 0,
+                        exp: 0,
+                        questsCompleted: 0
+                    }
+                },
+                avatar: {
+                    create: {
+                        hat_id: null,
+                        glasses_id: null,
+                        background_id: 1,
+                        frame_id: null
+                    }
                 }
             },
         include: {
@@ -35,7 +50,7 @@ usersRouter.post('/', [getEntityValidationMiddleware(UsersReq)], async (req: Req
         }
     }).then((result: any) => {
         console.log(`User '${username}' registered.`);
-        res.status(201).end(JSON.stringify(result));
+        res.redirect(201, 'http://localhost:3001/login');
     }).catch((err: any) => {
         next(err);
     })

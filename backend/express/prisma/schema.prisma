@@ -77,16 +77,19 @@ model Frames {
 }
 
 model Users_questlists {
-  user_id      Int        @id
+  user_id      Int
   questlist_id Int
   usedBy       Users      @relation(fields: [user_id], references: [id], onDelete: Cascade)
   questlist    Questlists @relation(fields: [questlist_id], references: [id])
-  date_created DateTime?   @default(now())
-  date_updated DateTime?   @updatedAt
+  date_created DateTime?  @default(now())
+  date_updated DateTime?  @updatedAt
+
+  @@id([user_id, questlist_id])
 }
 
 model Questlists {
   id               Int                @id @default(autoincrement())
+  title            String
   Users_questlists Users_questlists[]
   quests           Quests[]
   date_created     DateTime?          @default(now())
@@ -103,10 +106,10 @@ model Quests {
 }
 
 model Quest_details {
-  id           Int      @id
+  quest_id     Int       @id
   description  String
-  exp          Int
-  describes    Quests   @relation(fields: [id], references: [id], onDelete: Cascade)
+  completed    Boolean   @default(false)
+  describes    Quests    @relation(fields: [quest_id], references: [id], onDelete: Cascade)
   date_created DateTime? @default(now())
   date_updated DateTime? @updatedAt
 }

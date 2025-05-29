@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import getModelCRUDRouter, {CRUDRouterConfig} from "./routers/modelCRUDRouter";
 import {
     AttributeReq,
@@ -13,10 +14,14 @@ import prisma from "./dbCon";
 import friendsRouter from "./routers/friendsRouter";
 import usersRouter from "./routers/usersRouter";
 import passwordsRouter from "./routers/passwordsRouter";
+import usersQuestlistsRouter from './routers/usersQuestlistsRouter';
+import questsRouter from './routers/questsRouter';
+import questlistsRouter from './routers/questlistsRouter';
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 const usersConfig: CRUDRouterConfig = {
     idName: 'id',
@@ -59,7 +64,7 @@ const questlistsConfig: CRUDRouterConfig = {
     createModel: QuestlistsSchema
 }
 const questDetailsConfig: CRUDRouterConfig = {
-    idName: 'id',
+    idName: 'quest_id',
     updateModel: QuestDetailsSchema,
     createModel: QuestDetailsSchema
 }
@@ -72,11 +77,11 @@ app.use("/backgrounds", getModelCRUDRouter(prisma.backgrounds, attributeConfig))
 app.use("/frames", getModelCRUDRouter(prisma.frames, attributeConfig));
 app.use("/glasses", getModelCRUDRouter(prisma.glasses, attributeConfig));
 app.use("/friends", friendsRouter);
-app.use("/users_questlists", getModelCRUDRouter(prisma.users_questlists, usersQuestlistsConfig));
+app.use("/users_questlists", usersQuestlistsRouter);
 app.use("/stats", getModelCRUDRouter(prisma.stats, statsConfig));
-app.use("/quests", getModelCRUDRouter(prisma.quests, questsConfig));
-app.use("/questlists", getModelCRUDRouter(prisma.questlists, questlistsConfig));
-app.use("/questlist_details", getModelCRUDRouter(prisma.quest_details, questDetailsConfig));
+app.use("/quests", questsRouter);
+app.use("/questlists", questlistsRouter);
+app.use("/quest_details", getModelCRUDRouter(prisma.quest_details, questDetailsConfig));
 
 
 app.listen(3000);
