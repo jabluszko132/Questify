@@ -1,4 +1,4 @@
-import styles from "./landingPageNav.module.css";
+import styles from "./LandingPageNav.module.css";
 import Link from "next/link";
 
 import Image from "next/image";
@@ -6,6 +6,7 @@ import { auth } from "@/auth";
 
 export default async function LandingPageNav() {
   const session = await auth();
+  console.log("session from landing page nav: ", session);
   return (
     <nav className={styles.nav}>
       <div className={styles.logoContainer}>
