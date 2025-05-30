@@ -1,12 +1,27 @@
-## Questify
-# What is it?
-Questify is an app that allows its users to organise their tasks while
-motivating them to pursue their goals
-# Features
-- Create interactable task lists
-- Add your friends 
-- Customize your avatar for in-game currency
-- Share your progress with others!
-- Team up and complete group Quests!
-- Collect QuestCoins for completing tasks and earning Achievements!
+# Questify
+## Co to jest?
+Questify to aplikacja pozwalająca użytkownikom na organizację ich zadań, motywując ich do podążania za swoimi celami!
+## Features
+- Twórz interaktywne listy zadań
+- Dodaj swoich znajomych
+- Zmieniaj swój awatar za pomocą waluty z wykonywania zadań
+- Podziel się swoim progresem z innymi!
+- Zbieraj QuestCoins za wykonywanie zadań i zdobywanie osiągnięć!
+
+
+### Spełnienie wymagań projektowych: 
+
+1. Opis aplikacji (powyżej)
+2. Opis podziału pracy: 
+    * Jan Nowacki
+        * Całość backendu, z wyłączeniem autoryzacji
+        * Dokumentacja projektu
+        * Sporządzenie diagramu bazy danych
+    * Daniel Stawicki
+        * Całość frontendu
+        * Autoryzacja użytkownika
+        * Sporządzenie diagramu bazy danych
+3. Opis + diagram bazy danych 
+![diagram](./docs/diagram.png)
+Baza relacyjna wykonana za pomocą PostgreSQL oraz Prisma ORM.  
 
