@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
     const router = useRouter();
-    const host = process.env.NEXT_PUBLIC_BASE_URL;
     const api = process.env.NEXT_PUBLIC_API_URL;
     function register(formData: FormData)
     {
@@ -17,7 +16,7 @@ export default function RegisterPage() {
         }}).then(res => {
             if (res.ok) {
                 alert("User registered successfully. Redirecting to login page...");
-                router.push(`${host}/login`)
+                router.push('/login')
             } else {
                 alert(`Error: ${res.status} ${res.statusText}`);
             }
