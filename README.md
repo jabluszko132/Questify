@@ -23,5 +23,5 @@ Questify to aplikacja pozwalająca użytkownikom na organizację ich zadań, mot
         * Sporządzenie diagramu bazy danych
 3. Opis + diagram bazy danych 
 ![diagram](./docs/diagram.png)
-Baza relacyjna wykonana za pomocą PostgreSQL oraz Prisma ORM.  
+Baza relacyjna wykonana za pomocą PostgreSQL oraz Prisma ORM. 
 
