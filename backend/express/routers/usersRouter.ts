@@ -40,7 +40,7 @@ usersRouter.post('/', [getEntityValidationMiddleware(UsersReq)], async (req: Req
                     create: {
                         hat_id: null,
                         glasses_id: null,
-                        background_id: 1,
+                        background_id: null,
                         frame_id: null
                     }
                 }
@@ -50,7 +50,6 @@ usersRouter.post('/', [getEntityValidationMiddleware(UsersReq)], async (req: Req
         }
     }).then((result: any) => {
         console.log(`User '${username}' registered.`);
-        res.redirect(201, 'http://localhost:3001/login');
     }).catch((err: any) => {
         next(err);
     })
