@@ -23,11 +23,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-const usersConfig: CRUDRouterConfig = {
-    idName: 'id',
-    updateModel: UsersReq,
-    createModel: UsersReq
-}
 const avatarsConfig: CRUDRouterConfig = {
     idName: 'user_id',
     updateModel: AvatarsReq,
@@ -38,30 +33,10 @@ const attributeConfig: CRUDRouterConfig = {
     updateModel: AttributeReq,
     createModel: AttributeReq
 }
-const friendsConfig: CRUDRouterConfig = {
-    idName: 'user1_id',
-    updateModel: FriendsReq,
-    createModel: FriendsSchema
-}
-const usersQuestlistsConfig: CRUDRouterConfig = {
-    idName: 'user_id',
-    updateModel: UsersQuestlistsSchema,
-    createModel: UsersQuestlistsSchema
-}
 const statsConfig: CRUDRouterConfig = {
     idName: 'user_id',
     updateModel: StatsSchema,
     createModel: StatsSchema
-}
-const questsConfig: CRUDRouterConfig = {
-    idName: 'id',
-    updateModel: QuestsSchema,
-    createModel: QuestsSchema
-}
-const questlistsConfig: CRUDRouterConfig = {
-    idName: 'id',
-    updateModel: QuestlistsSchema,
-    createModel: QuestlistsSchema
 }
 const questDetailsConfig: CRUDRouterConfig = {
     idName: 'quest_id',
