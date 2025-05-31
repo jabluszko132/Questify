@@ -20,7 +20,7 @@ export default async function Avatar() {
                 alt="User avatar"/>
             {data.glasses_id && (
                 <Image width={256} height={256} className={styles.img}
-                    src={`/avatar/glasses/glasses${data.glasses_id}.    png`}
+                    src={`/avatar/glasses/glasses${data.glasses_id}.png`}
                     alt="User avatar glasses"/>
             )}
             {data.hat_id && (
