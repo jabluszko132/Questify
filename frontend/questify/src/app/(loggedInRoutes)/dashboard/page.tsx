@@ -1,5 +1,5 @@
-import UserCard from "@/app/ui/UserCard/UserCard";
-import QuestListGroup from "@/app/ui/QuestListGroup/QuestListGroup";
+import UserCard from "@/app/components/UserCard/UserCard";
+import QuestListGroup from "@/app/components/QuestListGroup/QuestListGroup";
 
 export default async function DashboardPage() {
     return (

@@ -1,4 +1,4 @@
-import AppNav from "@/app/ui/AppNav/AppNav";
+import AppNav from "@/app/components/AppNav/AppNav";
 
 export default function LoggedInLayout({
   children,
