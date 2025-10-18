@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from 'express'
 
-//TODO: check for unique constraints
-
+/**
+ * @param {any} prismaSchema - The Prisma schema for the model. E.g.: prisma.mySchema
+ * @returns Middleware to create a new record in the database using the provided Prisma schema.
+ */
 export function getCreateMiddleware(prismaSchema: any) {
     return (req: Request, res: Response, next: NextFunction) => {
         try {

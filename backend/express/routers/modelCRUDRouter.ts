@@ -1,5 +1,12 @@
 import {ZodObject} from "zod";
 
+/**
+ * Configuration for CRUD router generation.
+ * @interface CRUDRouterConfig
+ * @property {string} idName - The name of the ID parameter used in the route (e.g.: for "/:id" its "id").
+ * @property {ZodObject<any>} createModel - Zod schema for validating the create request body.
+ * @property {ZodObject<any>} updateModel - Zod schema for validating the update request body.
+ */
 export interface CRUDRouterConfig {
     idName: string;
     createModel: ZodObject<any>;

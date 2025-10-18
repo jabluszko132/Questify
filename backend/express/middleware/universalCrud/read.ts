@@ -1,5 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
 
+/**
+ * @param idName - The name of the ID parameter used in the route (e.g., for "/:id" it's "id").
+ * @param prismaSchema - The Prisma schema for the model. E.g.: prisma.mySchema
+ * @param isString - Whether the ID parameter is a string. Defaults to false (number).
+ * @returns Middleware to read a record by ID from the database using the provided Prisma schema.
+ */
 export function getReadByIdParamMiddleware(idName: string, prismaSchema: any, isString?: boolean) {
     return (req: Request, res: Response, next: NextFunction) => {
         try {
@@ -27,6 +33,12 @@ export function getReadByIdParamMiddleware(idName: string, prismaSchema: any, is
     }
 }
 
+/**
+ * @param idName - The name of the ID parameter used in the route (e.g., for "/:id" it's "id").
+ * @param prismaSchema - The Prisma schema for the model. E.g.: prisma.mySchema
+ * @param isString - Whether the ID parameter is a string. Defaults to false (number).
+ * @returns Middleware to read all records by a specific parameter from the database using the provided Prisma schema.
+ */
 export function getReadAllByParamMiddleware(idName: string, prismaSchema: any, isString?: boolean) {
     return (req: Request, res: Response, next: NextFunction) => {
         try {
