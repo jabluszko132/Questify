@@ -1,17 +1,29 @@
-import {FormEvent, RefObject, useState} from "react";
+import {FormEvent, useEffect, useState, useRef} from "react";
 interface QuestData {
     description: string;
     completed: boolean;
 }
 
-export default function EditQuestDialog(props: {quest_id: number, questData: QuestData, dialogRef: RefObject<HTMLDialogElement>}) {
+export default function EditQuestDialog(props: {quest_id: number, questData: QuestData, isOpen: boolean}) {
     const [description, setDescription] = useState(props.questData.description);
     const [completed, setCompleted] = useState(props.questData.completed);
+    const dialogRef = useRef<HTMLDialogElement>(null);
+
+    useEffect(() => {
+        if(dialogRef){
+            if(props.isOpen){
+                dialogRef.current?.show();
+            }else{
+               dialogRef.current?.close();
+            }
+        }
+    }, [dialogRef, props.isOpen]);
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        if(props.dialogRef.current.returnValue in ["cancel", "default"]) {
-            props.dialogRef.current.close();
+        if(!dialogRef.current) return;
+        if(dialogRef.current?.returnValue in ["cancel", "default"]) {
+            dialogRef.current?.close();
             return;
         }
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/quest_details/${props.quest_id}`, {
@@ -27,7 +39,7 @@ export default function EditQuestDialog(props: {quest_id: number, questData: Que
         }).then(res => {
             if (res.ok){
                 alert("Quest successfully updated.");
-                props.dialogRef.current.close();
+                dialogRef.current?.close();
             } else {
                 alert("Failed to update the quest.");
                 console.error("Failed to update quest: ", res.statusText);
@@ -39,7 +51,7 @@ export default function EditQuestDialog(props: {quest_id: number, questData: Que
     }
 
     return (
-        <dialog ref={props.dialogRef}>
+        <dialog ref={dialogRef}>
             <h2>Edit Quest</h2>
             <form onSubmit={handleSubmit}>
                 <label>
